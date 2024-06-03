@@ -45,5 +45,29 @@ When browser needs a resource
 
 Back/Forward Cache (bfcache)
 
+-------
+
+
+Service Workers and Cache Storage
+
 
 -------
+
+Basic Performance optimizations
+
+- Enable GZIP on text-based files
+  - HTML (static and dynamic)
+  - JavaScript, CSS, JSON, SVG
+
+- Make static contents expire late in the future
+  - React and angular applications do it by default
+
+- Use a CDN for a static contents
+
+- Consider Implementing HTTP/2 (and HTTPS)
+
+- Use cookie-less domain (cookies by default are sent per origin)
+
+- Reduce cookie size if you can't use cookie-less domain
+
+- Reduce redirects
