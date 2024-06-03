@@ -53,21 +53,67 @@ Service Workers and Cache Storage
 
 -------
 
-Basic Performance optimizations
+Basic Performance Optimizations
 
-- Enable GZIP on text-based files
+01) Enable GZIP on text-based files
   - HTML (static and dynamic)
   - JavaScript, CSS, JSON, SVG
 
-- Make static contents expire late in the future
+02) Make static contents expire late in the future
   - React and angular applications do it by default
 
-- Use a CDN for a static contents
+03) Use a CDN for a static contents
 
-- Consider Implementing HTTP/2 (and HTTPS)
+04) Consider Implementing HTTP/2 (and HTTPS)
 
-- Use cookie-less domain (cookies by default are sent per origin)
+05) Use cookie-less domain (cookies by default are sent per origin)
 
-- Reduce cookie size if you can't use cookie-less domain
+06) Reduce cookie size if you can't use cookie-less domain
 
-- Reduce redirects
+07) Reduce redirects
+
+08) try to reduce @imports for css
+
+09) JavaScript as dessert (JS is the most expensive asset, because of the CPU cost)
+  - Defer it as much as possible
+      -> ( add a defer attribute to the script tags, in this case js won't be executed until the parsing of the HTML is done )
+  - It uses the main thread
+  - Remove or defer unused code
+
+10) Compress / Obfuscate JS and CSS (Can improve file size and transfer by 10%)
+
+11) Release the main thread ASAP
+  - Don't take more than 15ms on the main thread ideally
+
+12) Embrace responsive images
+
+13) Embrace SVG
+
+14) Compress Images and Define placeholder size
+  - If you do not have the placeholder size we will have CLS (Cumulative Layout Shift)
+
+15) Careful with Web Fonts
+
+-------
+
+Advance Performance Optimizations
+
+A) Hacking First Load
+  1) Avoid more than one roundtrip
+    - TCP Slow Start
+    - Initial congestion window (`initcwnd`)
+    - In Linux it is => 14.6 KiB (1 kiB (kibibyte) => 1024 bytes)
+    - Above the Fold (ATF) => It is the first scroll; and Below the Fold (BTF) => It is the part after the initial viewport
+    - Deliver ATF in 14.6 KiB
+      - Embed all CSS and JS needed
+      - If space, embed logo and/or low-res images
+
+  2) Avoid http to httpS redirect
+    - Use HSTS (HTTP Strict Transport Security)
+    - It is a header
+    - Opt-in at hstspreload.org
+    - It saves around 150-200ms and one TCP connection
+
+B) Hacking LCP
+  1) Preloading
+    - Help the browser discover resources that are obscure in the document
