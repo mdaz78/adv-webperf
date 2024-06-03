@@ -117,3 +117,17 @@ A) Hacking First Load
 B) Hacking LCP
   1) Preloading
     - Help the browser discover resources that are obscure in the document
+    - It is a link element that we can set in the header => <link rel="preload" href="style.css" as="style" />
+    - Only do these for the things you know will improve the LCP
+
+  2) Fetch Priority
+    - It is used to over-ride the default priority
+    - Example => `<img src="gallery/ancient-greece.png" fetchpriority="high" />`
+
+  3) HTTP Early Hints
+    - HTTP Code 103
+    - We sent it before processing server-side
+    - Then we send HTTP Code 200
+    - Can save around 200-250ms
+
+C) Hacking Data Transfer
