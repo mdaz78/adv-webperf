@@ -1,0 +1,49 @@
+what happens when you go to https://www.frontendmasters.com
+
+1- DNS Query -> 100ms
+2- TCP connection -> 120ms
+3- SSL Negotiation -> 150ms
+4- HTTP Request -> uplink
+    header-body
+5- Server Process (backend time) -> 200ms to 500ms
+6- HTTP Response -> downlink
+    header - body
+7- Browsers HTML Parsing
+8- Resource Discovery and Priority
+9- Render (layout, paint)
+
+
+
+--------
+
+
+Resource Discovery Queue
+
+- Cache headers per file
+  - Absolute expiration data (HTTP 1.0)
+  - Relative expiration date (HTTP 1.1)
+  - More specs / values
+
+
+
+When browser needs a resource
+1 -> It checks the Cache
+  A) Cache Miss: we go to the network and fetch It
+  B) Cache HIT:
+    i) Is it expired
+      => makes a conditional request
+      => Server can respond with
+        => Not modified (updated cache header)
+        => Modified, Server sends a new file
+    ii) if not expired => we use the file from the Cache
+
+[ It is always a good idea to keep static expiration date in the far future ]
+
+
+
+--------
+
+Back/Forward Cache (bfcache)
+
+
+-------
